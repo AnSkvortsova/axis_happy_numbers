@@ -1,0 +1,23 @@
+.main {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.addition {
+  font-size: 34px;
+  line-height: 38px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.axis {
+  width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.axis__number {
+  width: 700px;
+  position: absolute;
+  top: 182px;
+  left: 0;
+  z-index: -1;
+}
