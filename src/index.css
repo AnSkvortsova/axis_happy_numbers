@@ -2,3 +2,5 @@
 @import url(./vendor/fonts/fonts.css);
 
 @import url(./components/App/App.css);
+@import url(./components/Canvas/Canvas.css);
+@import url(./components/Input/Input.css);

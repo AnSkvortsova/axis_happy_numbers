@@ -1,49 +1,72 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-
-
+import { Input } from '../Input/Input';
 
 export function Canvas(props) {
   const canvasRef = useRef(null);
 
-  const draw = useCallback(
+  const x1 = (props.a * 15 + 33);
+  const y = 195;
+  const r1 = ((props.a * 30 + 37) - x1);
+  console.log('props ', props)
+
+  const x2 = ((props.a * 30 + 15) + (props.b * 15 + 25));
+  const r2 = ((props.b * 30 + 37) - (props.b * 15 + 33));
+
+  const drawArcA = useCallback(
     (ctx) => {
-      const x1 = (props.a * 15 + 33);
-      const y1 = 195;
-      const r1 = ((props.a * 30 + 37) - x1);
-      console.log('props ', props)
-      console.log ('x1 ', x1, 'r1 ', r1)
-
-      const x2 = ((props.a * 30 + 15) + (props.b * 15 + 25));
-      const y2 = 195;
-      const r2 = ((props.b * 30 + 37) - (props.b * 15 + 32));
-      console.log ('x2 ', x2, 'r2 ', r2)
-
       ctx.strokeStyle = '#b776e9';
       ctx.lineWidth = 3;
 
       ctx.beginPath();
-      ctx.arc(x1, y1, r1, 0, Math.PI, true);
+      ctx.arc(x1, y, r1, 0, Math.PI, true);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x2, y2, r2, 0, Math.PI, true);
-      ctx.stroke();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []
+    }, [x1, r1]
   );
 
-  const handleCleack = (env) => {
-    console.log('x = ', env.clientX, 'y = ', env.clientY)
-    }
+  const drawArcB = useCallback(
+    (ctx) => {
+      ctx.strokeStyle = '#b776e9';
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.arc(x2, y, r2, 0, Math.PI, true);
+      ctx.stroke();
+    }, [x2, r2]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
+    if(props.a !== ''){
+      drawArcA(context);
+    };
 
-    draw(context);
-  }, [draw]);
+    if(props.isInputAValid) {
+      drawArcB(context);
+    };
+  }, [drawArcA, drawArcB, props.a, props.isInputAValid]);
 
   return(
-    <canvas ref={canvasRef} {...props} width={700} height={200} onClick={handleCleack} />
+    <div className="canvas">
+      <Input 
+        x = {x1-13}
+        r = {150-r1}
+        input = {props.inputA}
+        onInputChange = {props.onInputAChange}
+        isValid = {props.isInputAValid}
+      />
+      {!props.isInputAValid ? null : 
+      <Input 
+        x = {x2-13}
+        r = {150-r2}
+        input = {props.inputB}
+        onInputChange = {props.onInputBChange}
+        isValid = {props.isInputBValid}
+      />
+      }
+
+      <canvas ref={canvasRef} {...props} width={700} height={200} />
+    </div>
   );
 }
