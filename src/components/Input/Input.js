@@ -7,9 +7,15 @@ export function Input(props) {
     props.onInputChange(evt.target.value)
   };
 
+  console.log('props input ', props)
+
+
   return(
     <input
-      className = {`input ${validate ? '' : 'input_error'} ${props.isValid ? '' : 'input_focus'}`}
+      className = {`input 
+        ${validate ? '' : 'input_error'} 
+        ${props.isValid ? '' : 'input_focus'} 
+        ${props.isActive ? 'input_big' : ''}`}
       type = "text"
       style = {{left: props.x, top: props.r}} 
       value = {value}

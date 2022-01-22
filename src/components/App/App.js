@@ -43,6 +43,9 @@ function App() {
 
   const [isInputAValid, setInputAValidState] = useState(true);
   const [isInputBValid, setInputBValidState] = useState(true);
+  const [isInputCValid, setInputCValidState] = useState(true);
+  
+  const [isInputCActive, setInputCActiveState] = useState(false);
 
 
   function handleInputAChange(evt) {
@@ -89,6 +92,22 @@ function App() {
     }
   }, [inputB]);
 
+  useEffect(() => {
+    if(inputC.value === '') {
+      setInputCValidState(false)
+    } else if (!inputC.validate) {
+      setInputCValidState(false)
+    } else {
+      setInputCValidState(true)
+    }
+  }, [inputC]);
+
+  useEffect(() => {
+    if(isInputBValid) {
+      setInputCActiveState(true);
+    }
+  }, [isInputBValid]);
+
   return (
     <div className="main">
       <div className="addition">
@@ -103,6 +122,8 @@ function App() {
           : <Input 
               input = {inputC}
               onInputChange = {handleInputCChange}
+              isActive = {isInputCActive}
+              isValid = {isInputCValid}
             />}
       </div>
       
