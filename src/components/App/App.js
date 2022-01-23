@@ -1,11 +1,10 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Canvas } from '../Canvas/Canvas';
 import { Input } from '../Input/Input';
 
 import axisNumber from '../../images/number_axis.png';
-import { useEffect } from 'react/cjs/react.development';
 
 function App() {
   //числа
@@ -108,6 +107,25 @@ function App() {
     }
   }, [isInputBValid]);
 
+  //стрелки
+  const y = 195;
+
+  const x1 = (numberA * 15 + 33);
+  const r1 = ((numberA * 30 + 37) - x1);
+
+  const x2 = ((numberA * 30 + 15) + (numberB * 15 + 25));
+  const r2 = ((numberB * 30 + 37) - (numberB * 15 + 33));
+
+  const yl = y - 10;
+
+  const x1l1 = numberA * 30 + 37;
+  const x1l2 = x1l1 - 8;
+  const x1l3 = x1l1 + 8;
+
+  const x2l1 = (numberA * 30 + 14) + (numberB * 30 + 30);
+  const x2l2 = x2l1 - 8;
+  const x2l3 = x2l1 + 8;
+
   return (
     <div className="main">
       <div className="addition">
@@ -128,16 +146,51 @@ function App() {
       </div>
       
       <div className="axis">
-        <Canvas 
-          a = {numberA} 
-          b = {numberB} 
-          inputA = {inputA}
-          inputB = {inputB}
-          isInputAValid = {isInputAValid}
-          isInputBValid = {isInputBValid}
-          onInputAChange = {handleInputAChange}
-          onInputBChange = {handleInputBChange}
+        <Input 
+          x = {x1-13}
+          r = {150-r1}
+          input = {inputA}
+          onInputChange = {handleInputAChange}
+          isValid = {isInputAValid}
         />
+
+        {!isInputAValid ? null : 
+          <Input 
+            x = {x2-13}
+            r = {150-r2}
+            input = {inputB}
+            onInputChange = {handleInputBChange}
+            isValid = {isInputBValid}
+          />
+        }
+        {numberA === '' ? null :
+          <Canvas
+            y = {y}
+            x = {x1} 
+            r = {r1}
+
+            yl = {yl}
+            xl1 = {x1l1}
+            xl2 = {x1l2}
+            xl3 = {x1l3}
+
+            className = "canvas__arrowA"
+          />
+        }
+        {!isInputAValid ? null : 
+          <Canvas
+            y = {y}
+            x = {x2} 
+            r = {r2}
+
+            yl = {yl}
+            xl1 = {x2l1}
+            xl2 = {x2l2}
+            xl3 = {x2l3}
+
+            className = "canvas__arrowB"
+          />
+        }
         <img className="axis__number" src={axisNumber} alt="числовая ось" />
       </div>
     </div>

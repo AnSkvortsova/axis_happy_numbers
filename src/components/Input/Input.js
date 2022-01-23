@@ -7,9 +7,6 @@ export function Input(props) {
     props.onInputChange(evt.target.value)
   };
 
-  console.log('props input ', props)
-
-
   return(
     <input
       className = {`input 

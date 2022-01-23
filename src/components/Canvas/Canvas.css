@@ -1,0 +1,23 @@
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: 2s ease-in forwards canvas;
+}
+
+.canvas__arrowA {
+  z-index: -1;
+}
+
+.canvas__arrowB {
+  z-index: -2;
+}
+
+@keyframes canvas {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
